@@ -50,14 +50,13 @@ class Monitor:
                     process("CollectSamples | ", i, self.sample_size)
 
             print("")
+            knowledge_instance.avg_overhead = self.avg_overhead
+            knowledge_instance.total_complaint = self.total_complaint
+            knowledge_instance.avg_overhead_list.append(knowledge_instance.avg_overhead)
+            knowledge_instance.total_complaint_list.append(knowledge_instance.total_complaint)
+            info("*** sum of complaint:   " + str(total_complaint))
+            info("*** average overhead:   " + str(avg_overhead))
+            info("------test------" + str(knowledge_instance.avg_overhead) + "   "+ str(knowledge_instance.total_complaint))
         except StopIteration:
             # this iteration should stop asap
             error("This experiment got stopped as requested by a StopIteration exception")
-
-        knowledge_instance.avg_overhead = self.avg_overhead
-        knowledge_instance.total_complaint = self.total_complaint
-        knowledge_instance.avg_overhead_list.append(knowledge_instance.avg_overhead)
-        knowledge_instance.total_complaint_list.append(knowledge_instance.total_complaint)
-        info("*** sum of complaint:   " + str(total_complaint))
-        info("*** average overhead:   " + str(avg_overhead))
-        info("------test------" + str(knowledge_instance.avg_overhead) + "   "+ str(knowledge_instance.total_complaint))
