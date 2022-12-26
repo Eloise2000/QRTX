@@ -7,20 +7,20 @@ class Monitor:
         self.wf = wf
         self.ignore_size = ignore_size
         self.sample_size = sample_size
+        self.avg_overhead = 0
+        self.total_complaint = 0
 
     def primary_data_reducer(self, cnt, newData):
-        knowledge_instance.avg_overhead = (knowledge_instance.avg_overhead * cnt + newData["overhead"]) / (cnt + 1)
-        knowledge_instance.total_complaint += newData["complaint"]
-        knowledge_instance.avg_overhead_list.append(knowledge_instance.avg_overhead)
-        knowledge_instance.total_complaint_list.append(knowledge_instance.total_complaint)
-        return knowledge_instance.avg_overhead, knowledge_instance.total_complaint
+        self.avg_overhead = (self.avg_overhead * cnt + newData["overhead"]) / (cnt + 1)
+        self.total_complaint += newData["complaint"]
+        return self.avg_overhead, self.total_complaint
 
     def run(self):
         # remove all old data from the queues
         self.wf.primary_data_provider["instance"].reset()
 
-        avg_overhead = 0.0
-        total_complaint = 0
+        self.avg_overhead = 0
+        self.total_complaint = 0
 
         # ignore samples to wait the effect of the change
         if self.ignore_size > 0:
@@ -37,7 +37,7 @@ class Monitor:
         try:
             while i < self.sample_size:
                 new_data = self.wf.primary_data_provider["instance"].returnData()
-                if new_data is not None:
+                if new_data is not  None:
                     try:
                         avg_overhead, total_complaint = self.primary_data_reducer(i, new_data)
                     except StopIteration:
@@ -53,5 +53,11 @@ class Monitor:
         except StopIteration:
             # this iteration should stop asap
             error("This experiment got stopped as requested by a StopIteration exception")
+
+        knowledge_instance.avg_overhead = self.avg_overhead
+        knowledge_instance.total_complaint = self.total_complaint
+        knowledge_instance.avg_overhead_list.append(knowledge_instance.avg_overhead)
+        knowledge_instance.total_complaint_list.append(knowledge_instance.total_complaint)
         info("*** sum of complaint:   " + str(total_complaint))
         info("*** average overhead:   " + str(avg_overhead))
+        info("------test------" + str(knowledge_instance.avg_overhead) + "   "+ str(knowledge_instance.total_complaint))
