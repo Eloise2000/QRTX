@@ -30,21 +30,24 @@ def execute_workflow(wf):
     init_change_provider(wf)
     init_data_providers(wf)
 
-    monitor = Monitor(wf,10,10)
+    monitor = Monitor(wf,100,100)
     analyser = Analyser()
     planner = Planner()
     executor = Executor(wf)
 
+    round = 30
     #MAPE-K loop
     info("> MAPE-K running......")
-    for i in range(10):
+    for i in range(round):
+        info(">  episode: "+str(i)+"/"+str(round))
         monitor.run()
         analyser.run()
         planner.run()
         executor.run()
 
-    log_results(wf.folder, [n+1 for n in range(10)], knowledge_instance.total_complaint_list,False)
-    plot(wf)
+    log_results(wf.folder, [n+1 for n in range(round)], knowledge_instance.total_complaint_list,
+                knowledge_instance.avg_overhead_list, knowledge_instance.reward_list,False)
+    plot(wf,1)
 
 
     # we are done, now we clean up

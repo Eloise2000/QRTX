@@ -5,7 +5,7 @@ import rtxlib
 
 from rtxlib import info, error, debug
 from Qlib.qworkflow import execute_workflow
-from rtxlib.report import plot
+from Qlib.report import plot
 
 
 def loadDefinition(folder):
@@ -44,7 +44,9 @@ if __name__ == '__main__':
     if len(sys.argv) > 2 and sys.argv[1] == "report":
         wf = loadDefinition(sys.argv[2])
         info("> Starting RTX reporting...")
-        plot(wf)
+
+        # 1 complaint, 2 overhead, 3 reward
+        plot(wf,1)
         exit(0)
 
     # Help

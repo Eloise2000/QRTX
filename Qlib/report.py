@@ -7,7 +7,7 @@ import seaborn as sns
 import csv
 
 
-def plot(wf):
+def plot(wf,index):
     """ here we try to generate automatic plotting of the experiments results """
 
     info("######################################", Fore.CYAN)

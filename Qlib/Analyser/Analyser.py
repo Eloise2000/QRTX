@@ -18,6 +18,7 @@ class Analyser:
             last_state_q = knowledge_instance.total_complaint_list[-2]
             last_action_q = int(knowledge_instance.action * 50)
             reward = self.compute_reward()
+            knowledge_instance.reward_list.append(reward)
             state_q = knowledge_instance.total_complaint
             if self.epsilon <= np.random.uniform(0, 1):
                 action_q = np.argmax(knowledge_instance.q_table[last_state_q])
