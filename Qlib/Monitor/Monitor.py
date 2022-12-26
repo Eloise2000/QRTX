@@ -48,7 +48,6 @@ class Monitor:
                         error("could not reducing data set: " + str(new_data))
                     i += 1
                     process("CollectSamples | ", i, self.sample_size)
-
             print("")
             knowledge_instance.avg_overhead = self.avg_overhead
             knowledge_instance.total_complaint = self.total_complaint
@@ -60,3 +59,4 @@ class Monitor:
         except StopIteration:
             # this iteration should stop asap
             error("This experiment got stopped as requested by a StopIteration exception")
+

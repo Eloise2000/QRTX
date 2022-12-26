@@ -8,6 +8,9 @@ from Qlib.Monitor.Monitor import Monitor
 from Qlib.Executor.Executor import Executor
 from Qlib.Analyser.Analyser import Analyser
 from Qlib.Planner.Planner import Planner
+from Qlib.Knowledge.Knowledge import instance as knowledge_instance
+from Qlib import log_results
+from Qlib.report import plot
 
 # init change_provider, data_provider and execute MAPE-K loop
 def execute_workflow(wf):
@@ -27,7 +30,7 @@ def execute_workflow(wf):
     init_change_provider(wf)
     init_data_providers(wf)
 
-    monitor = Monitor(wf,100,100)
+    monitor = Monitor(wf,10,10)
     analyser = Analyser()
     planner = Planner()
     executor = Executor(wf)
@@ -39,6 +42,10 @@ def execute_workflow(wf):
         analyser.run()
         planner.run()
         executor.run()
+
+    log_results(wf.folder, [n+1 for n in range(10)], knowledge_instance.total_complaint_list,False)
+    plot(wf)
+
 
     # we are done, now we clean up
     kill_pre_processors(wf)
