@@ -1,6 +1,11 @@
 Metadata-Version: 2.1
 Name: RTX
 Version: 0.2
+Summary: UNKNOWN
+Home-page: UNKNOWN
+License: UNKNOWN
+Platform: UNKNOWN
 License-File: LICENSE
 
 Real-Time Experimentation (RTX) tool allows for self-adaptation based on analysis of real time (streaming) data. RTX is particularly useful in analyzing operational data in a Big Data environement.
+

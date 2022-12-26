@@ -1,6 +1,8 @@
 LICENSE
 README.md
 setup.py
+Qlib/__init__.py
+Qlib/definition.py
 RTX.egg-info/PKG-INFO
 RTX.egg-info/SOURCES.txt
 RTX.egg-info/dependency_links.txt
