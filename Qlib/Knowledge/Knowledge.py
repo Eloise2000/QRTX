@@ -12,6 +12,7 @@ class Knowledge:
         self.avg_overhead_list = []
         self.total_complaint_list = []
 
+        self.episode = 0
         self.action = None # action of last round, update after planner
         self.new_knob_val = None
 
