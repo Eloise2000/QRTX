@@ -30,8 +30,12 @@ def execute_workflow(wf):
 
     #MAPE-K loop
     info("> MAPE-K running......")
-    monitor.run()
-    executor.run()
+    i = 0
+    while i < 5:
+        monitor.run()
+        executor.run()
+
+
     # we are done, now we clean up
     kill_pre_processors(wf)
     info("> Finished workflow")

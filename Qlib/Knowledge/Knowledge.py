@@ -4,7 +4,6 @@
 class Knowledge:
 
 
-
     def __init__(self, change_applied, avg_overhead, total_complaint):
         self.is_change_applied = change_applied
         self.avg_overhead = avg_overhead
