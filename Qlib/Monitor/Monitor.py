@@ -11,6 +11,8 @@ class Monitor:
     def primary_data_reducer(self, cnt, newData):
         knowledge_instance.avg_overhead = (knowledge_instance.avg_overhead * cnt + newData["overhead"]) / (cnt + 1)
         knowledge_instance.total_complaint += newData["complaint"]
+        knowledge_instance.avg_overhead_list.append(knowledge_instance.avg_overhead)
+        knowledge_instance.total_complaint_list.append(knowledge_instance.total_complaint)
         return knowledge_instance.avg_overhead, knowledge_instance.total_complaint
 
     def run(self):

@@ -5,6 +5,7 @@ from rtxlib.changeproviders import init_change_provider
 from rtxlib.dataproviders import init_data_providers
 from rtxlib.preprocessors import init_pre_processors, kill_pre_processors
 from Qlib.Monitor.Monitor import Monitor
+from Qlib.Executor.Executor import Executor
 
 # init change_provider, data_provider and execute MAPE-K loop
 def execute_workflow(wf):
@@ -25,10 +26,12 @@ def execute_workflow(wf):
     init_data_providers(wf)
 
     monitor = Monitor(wf,100,100)
+    executor = Executor(wf)
 
     #MAPE-K loop
     info("> MAPE-K running......")
     monitor.run()
+    executor.run()
     # we are done, now we clean up
     kill_pre_processors(wf)
     info("> Finished workflow")

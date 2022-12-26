@@ -13,7 +13,7 @@ class Knowledge:
         self.total_complaint_list = []
 
         self.training_round = 0
-        self.new_knob_val = 0.0
+        self.new_knob_val = 0.5
 
 
 instance = Knowledge(True, 0.0, 0)
