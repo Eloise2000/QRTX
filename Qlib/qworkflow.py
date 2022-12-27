@@ -28,9 +28,9 @@ def test_qworkflow(wf, path):
     init_data_providers(wf)
 
     # Set up all variables
-    ignore_size = 10
-    sample_size = 10
-    rounds = 3
+    ignore_size = 100
+    sample_size = 100
+    rounds = 30
     plot_idx = 3
 
     monitor = Monitor(wf,ignore_size,sample_size)
@@ -75,9 +75,9 @@ def execute_workflow(wf):
     init_data_providers(wf)
 
     # Set up all variables
-    ignore_size = 10
-    sample_size = 10
-    rounds = 3
+    ignore_size = 100
+    sample_size = 100
+    rounds = 30
     flag = 1 # 1 is q-learning, 0 is random
     plot_idx = 3
 
