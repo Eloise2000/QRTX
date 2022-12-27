@@ -1,5 +1,12 @@
 import csv
 from rtxlib import error
+import numpy as np
+from Qlib.Knowledge.Knowledge import instance as knowledge_instance
+
+def save_qtable(experiment_folder):
+    """ save qtable to a csv file """
+    np.savetxt('./' + str(experiment_folder) + "/q_table.csv", knowledge_instance.q_table, delimiter=",")
+
 def log_results(experiment_folder, round, total_complaints, trip_overheads, rewards, append=True):
     """ logs the result values of an experiment to a csv file """
     try:

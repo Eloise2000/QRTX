@@ -10,7 +10,7 @@ from Qlib.Executor.Executor import Executor
 from Qlib.Analyser.Analyser import Analyser
 from Qlib.Planner.Planner import Planner
 from Qlib.Knowledge.Knowledge import instance as knowledge_instance
-from Qlib import log_results
+from Qlib import log_results, save_qtable
 from Qlib.report import plot
 
 # init change_provider, data_provider and execute MAPE-K loop
@@ -40,7 +40,7 @@ def execute_workflow(wf):
 
     round = 3
 
-    flag = 0 # 1 is q-learning, 0 is random
+    flag = 1 # 1 is q-learning, 0 is random
     if flag:
         # MAPE-K loop
         info("> MAPE-K running......")
@@ -50,6 +50,9 @@ def execute_workflow(wf):
             analyser.run()
             planner.run()
             executor.run()
+        # Save q-table
+        info("> Saving Q table......")
+        save_qtable(wf.folder)
     else:
         # Random select action
         info("> Random action running......")
