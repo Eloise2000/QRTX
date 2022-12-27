@@ -1,4 +1,5 @@
 from colorama import Fore
+import numpy as np
 
 from rtxlib import info, error
 from rtxlib.changeproviders import init_change_provider
@@ -30,21 +31,37 @@ def execute_workflow(wf):
     init_change_provider(wf)
     init_data_providers(wf)
 
-    monitor = Monitor(wf,100,100)
+    ignore_size = 10
+    sample_size = 10
+    monitor = Monitor(wf,ignore_size,sample_size)
     analyser = Analyser()
     planner = Planner()
     executor = Executor(wf)
 
-    round = 100
-    #MAPE-K loop
-    info("> MAPE-K running......")
-    for i in range(round):
-        info(">  episode: "+str(i+1)+"/"+str(round))
-        monitor.run()
-        analyser.run()
-        planner.run()
-        executor.run()
+    round = 3
 
+    flag = 0 # 1 is q-learning, 0 is random
+    if flag:
+        # MAPE-K loop
+        info("> MAPE-K running......")
+        for i in range(round):
+            info(">  episode: "+str(i+1)+"/"+str(round))
+            monitor.run()
+            analyser.run()
+            planner.run()
+            executor.run()
+    else:
+        # Random select action
+        info("> Random action running......")
+        for i in range(round):
+            info(">  episode: "+str(i+1)+"/"+str(round))
+            monitor.run()
+            reward = analyser.compute_reward()
+            knowledge_instance.reward_list.append(reward)
+            knowledge_instance.new_knob_val = {"exploration_percentage": np.random.choice(np.arange(0,0.6,0.02))}
+            executor.run()
+        
+    info("> test" + str(knowledge_instance.total_complaint_list))
     log_results(wf.folder, [n+1 for n in range(round)], knowledge_instance.total_complaint_list,
                 knowledge_instance.avg_overhead_list, knowledge_instance.reward_list,False)
     plot(wf,3)
