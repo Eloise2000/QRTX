@@ -4,7 +4,7 @@ import numpy as np
 
 class Analyser:
     def __init__(self):
-        self.alpha = 0.2
+        self.alpha = 0.35
         self.gamma = 0.99
         self.epsilon = 0.2
 

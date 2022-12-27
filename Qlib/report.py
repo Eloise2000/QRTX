@@ -27,7 +27,7 @@ def plot(wf,index):
 
     info("> Found 1 knob, creating scatter plot...", Fore.CYAN)
     plot_file = plot_file_dir + '/scatter_plot.png'
-    ax = sns.regplot(x=header[0], y=header[1], data=results_data_frame, fit_reg=False)
+    ax = sns.regplot(x=header[0], y=header[index], data=results_data_frame, fit_reg=False)
     fig = ax.get_figure()
     fig.savefig(plot_file)
     info("> Plot saved at " + plot_file, Fore.CYAN)

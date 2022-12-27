@@ -35,11 +35,11 @@ def execute_workflow(wf):
     planner = Planner()
     executor = Executor(wf)
 
-    round = 30
+    round = 100
     #MAPE-K loop
     info("> MAPE-K running......")
     for i in range(round):
-        info(">  episode: "+str(i)+"/"+str(round))
+        info(">  episode: "+str(i+1)+"/"+str(round))
         monitor.run()
         analyser.run()
         planner.run()
@@ -47,7 +47,7 @@ def execute_workflow(wf):
 
     log_results(wf.folder, [n+1 for n in range(round)], knowledge_instance.total_complaint_list,
                 knowledge_instance.avg_overhead_list, knowledge_instance.reward_list,False)
-    plot(wf,1)
+    plot(wf,3)
 
 
     # we are done, now we clean up

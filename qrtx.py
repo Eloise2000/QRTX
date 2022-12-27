@@ -46,7 +46,7 @@ if __name__ == '__main__':
         info("> Starting RTX reporting...")
 
         # 1 complaint, 2 overhead, 3 reward
-        plot(wf,1)
+        plot(wf,3)
         exit(0)
 
     # Help
