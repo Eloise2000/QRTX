@@ -51,5 +51,8 @@ QRTX has the following abstractions that can be implemented for any given servic
   `python qrtx.py report Qlib`
 
 ### Observed results
+##### QRTX Interface
 ![QRTX Interface](QRTX.png)
+
+##### Experiment Result
 ![Experiment Result](experiment_result.png)
