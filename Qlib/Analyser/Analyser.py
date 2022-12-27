@@ -16,8 +16,11 @@ class Analyser:
     def run(self, test_flag):
         # test_flag = True -> test
         if test_flag:
-            action = np.argmax(knowledge_instance.q_table[last_state_q]) / 50
+            state_q = knowledge_instance.total_complaint
+            action = np.argmax(knowledge_instance.q_table[state_q]) / 50
             knowledge_instance.action = action
+            reward = self.compute_reward()
+            knowledge_instance.reward_list.append(reward)
         # test_flag = False -> train
         elif knowledge_instance.action is not None: # if have last state
             last_state_q = knowledge_instance.total_complaint_list[-2]
