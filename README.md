@@ -7,7 +7,7 @@
 Q-learning Real-Time Experimentation (QRTX) tool allows for self-adaptation with optimization strategies based on real-time (streaming) data analysis. We provide Q-learning for self-optimization, which can discover optimal system configurations at runtime for each distinct situation that is also dynamically identified at runtime. QRTX is particularly useful in analyzing operational data in a Big Data environement.
 
 ### Minimal Setup
-* Download the RTX code
+* Download the QRTX code
 * Run `python setup.py install` to download all dependencies 
 * To run example experiments, first install [CrowdNav](https://github.com/Starofall/CrowdNav)
 * To use Spark as a PreProcessor you also need to install Spark and set SPARK_HOME
@@ -20,6 +20,19 @@ Q-learning Real-Time Experimentation (QRTX) tool allows for self-adaptation with
 3. Run QRTX execution strategies
 
 For more details, you can refer to [RTX & CrowdNav Getting Started Guide](https://github.com/Starofall/RTX/wiki/RTX-&-CrowdNav-Getting-Started-Guide)
+
+### Abstractions
+QRTX has the following abstractions that can be implemented for any given service:
+* PreProcessor - To handle Big Data volumes of data, this is used to reduce the volume
+    * Example: Spark   
+* DataProviders - A source of data to be used in an experiment
+    * Example: KafkaDataProvider, HTTPRequestDataProvider
+* ChangeProviders - Communicates experiment knobs/variables to the target system
+    * Example: KafkaChangeProvider, HTTPRequestChangeProvider
+* ExecutionStrategy - Define the process of an experiment
+    * Example: Sequential, Gauss-Process-Self-Optimizing, Linear 
+* ExperimentDefinition - A experiment is defined in a python file 
+    * See `./experiment-specification/experiment.py`
 
 ### Supported execution strategies
 * Start training process: `python qrtx.py start Qlib`
@@ -34,16 +47,7 @@ For more details, you can refer to [RTX & CrowdNav Getting Started Guide](https:
     * `epsilon`: related to epsilon-greedy action selection procedure
 * Start testing using trained q-table:
   `python qrtx.py test Qlib [q_table csv file path]`
+* Start plotting the graph
+  `python qrtx.py report Qlib`
 
-### Abstractions
-RTX has the following abstractions that can be implemented for any given service:
-* PreProcessor - To handle Big Data volumes of data, this is used to reduce the volume
-    * Example: Spark   
-* DataProviders - A source of data to be used in an experiment
-    * Example: KafkaDataProvider, HTTPRequestDataProvider
-* ChangeProviders - Communicates experiment knobs/variables to the target system
-    * Example: KafkaChangeProvider, HTTPRequestChangeProvider
-* ExecutionStrategy - Define the process of an experiment
-    * Example: Sequential, Gauss-Process-Self-Optimizing, Linear 
-* ExperimentDefinition - A experiment is defined in a python file 
-    * See `./experiment-specification/experiment.py`
+### Observed results

@@ -32,6 +32,7 @@ def loadDefinition(folder):
 
 
 if __name__ == '__main__':
+    # Train q-table: python qrtx.py start folder (python qrtx.py start Qlib)
     if len(sys.argv) > 2 and sys.argv[1] == "start":
         wf = loadDefinition(sys.argv[2])
         # setting global variable log_folder for logging and clear log
@@ -41,13 +42,14 @@ if __name__ == '__main__':
         execute_workflow(wf)
         exit(0)
 
-    # python qrtx.py test folder qtable_path (python qrtx.py test Qlib ./Qlib/q_table.csv)
+    # Test on given q-table: python qrtx.py test folder qtable_path (python qrtx.py test Qlib ./Qlib/q_table.csv)
     if len(sys.argv) > 2 and sys.argv[1] == "test":
         wf = loadDefinition(sys.argv[2])
         info("> Starting QRTX test ...")
         test_qworkflow(wf, sys.argv[3])
         exit(0)
 
+    # Plot the result graph
     if len(sys.argv) > 2 and sys.argv[1] == "report":
         wf = loadDefinition(sys.argv[2])
         info("> Starting QRTX reporting ...")
