@@ -6,7 +6,6 @@
 ### Description
 Q-learning Real-Time Experimentation (QRTX) tool allows for self-adaptation with optimization strategies based on real-time (streaming) data analysis. We provide Q-learning for self-optimization, which can discover optimal system configurations at runtime for each distinct situation that is also dynamically identified at runtime. QRTX is particularly useful in analyzing operational data in a Big Data environement.
 
-
 ### Minimal Setup
 * Download the RTX code
 * Run `python setup.py install` to download all dependencies 
@@ -22,6 +21,20 @@ Q-learning Real-Time Experimentation (QRTX) tool allows for self-adaptation with
 
 For more details, you can refer to [RTX & CrowdNav Getting Started Guide](https://github.com/Starofall/RTX/wiki/RTX-&-CrowdNav-Getting-Started-Guide)
 
+### Supported execution strategies
+* Start training process: `python qrtx.py start Qlib`
+  * You can further change the training parameter in `/QRTX/Qlib/qworkflow.py`:
+    * `ignore_size`: How many samples are ignored to wait the effect of the change
+    * `sample_size`: How many samples of data to receive for one round
+    * `rounds`: How many rounds for training process
+    * `flag`: Using q-learning strategy is 1; random select action is 0
+  * You can finetune Q-learning parameters in `QRTX/Qlib/Analyser/Analyser.py`:
+    * `alpha`: learning rate
+    * `gamma`: the value of future reward
+    * `epsilon`: related to epsilon-greedy action selection procedure
+* Start testing using trained q-table:
+  `python qrtx.py test Qlib [q_table csv file path]`
+
 ### Abstractions
 RTX has the following abstractions that can be implemented for any given service:
 * PreProcessor - To handle Big Data volumes of data, this is used to reduce the volume
@@ -34,10 +47,3 @@ RTX has the following abstractions that can be implemented for any given service
     * Example: Sequential, Gauss-Process-Self-Optimizing, Linear 
 * ExperimentDefinition - A experiment is defined in a python file 
     * See `./experiment-specification/experiment.py`
-
-### Supported execution strategies
-* Start training process:
-  * `python qrtx.py start Qlib`
-  * You can further change the training parameter in `/QRTX/Qlib/qworkflow.py`
-* Start testing using trained q-table:
-  `python qrtx.py test Qlib [q_table csv file]`
