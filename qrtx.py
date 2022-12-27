@@ -5,12 +5,12 @@ import rtxlib
 
 from rtxlib import info, error, debug
 from Qlib.qworkflow import execute_workflow
+from Qlib.qworkflow import test_qworkflow
 from Qlib.report import plot
-
 
 def loadDefinition(folder):
     """ opens the given folder and searches for a definition.py file and checks if it looks valid"""
-    if len(sys.argv) != 3:
+    if len(sys.argv) < 3:
         error("missing definition folder")
         exit(1)
     try:
@@ -39,12 +39,18 @@ if __name__ == '__main__':
         rtxlib.clearOldLog()
         info("> Starting QRTX ...")
         execute_workflow(wf)
-
         exit(0)
+
+    # python qrtx.py test folder qtable_path (python qrtx.py test Qlib ./Qlib/q_table.csv)
+    if len(sys.argv) > 2 and sys.argv[1] == "test":
+        wf = loadDefinition(sys.argv[2])
+        info("> Starting QRTX test ...")
+        test_qworkflow(wf, sys.argv[3])
+        exit(0)
+
     if len(sys.argv) > 2 and sys.argv[1] == "report":
         wf = loadDefinition(sys.argv[2])
-        info("> Starting RTX reporting...")
-
+        info("> Starting QRTX reporting ...")
         # 1 complaint, 2 overhead, 3 reward
         plot(wf,3)
         exit(0)

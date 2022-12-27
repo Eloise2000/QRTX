@@ -14,7 +14,7 @@ class Knowledge:
         self.reward_list = []
 
         self.episode = 0
-        self.action = None # action of last round, update after planner
+        self.action = None # action of last round, update after Analyser
         self.new_knob_val = None
 
         self.training_round = 0

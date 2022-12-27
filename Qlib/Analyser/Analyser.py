@@ -13,15 +13,20 @@ class Analyser:
         info("**** Reward: "+ str(reward))
         return reward
 
-    def run(self):
-        if knowledge_instance.action is not None: # if have last state
+    def run(self, test_flag):
+        # test_flag = True -> test
+        if test_flag:
+            action = np.argmax(knowledge_instance.q_table[last_state_q]) / 50
+            knowledge_instance.action = action
+        # test_flag = False -> train
+        elif knowledge_instance.action is not None: # if have last state
             last_state_q = knowledge_instance.total_complaint_list[-2]
             last_action_q = int(knowledge_instance.action * 50)
             reward = self.compute_reward()
             knowledge_instance.reward_list.append(reward)
             state_q = knowledge_instance.total_complaint
             if self.epsilon <= np.random.uniform(0, 1):
-                action_q = np.argmax(knowledge_instance.q_table[last_state_q])
+                action_q = np.argmax(knowledge_instance.q_table[state_q])
                 action = action_q / 50
             else:
                 action_q = np.random.choice(knowledge_instance.action_size)
